@@ -16,7 +16,7 @@ class WeiXinLayout extends Component {
         <h1>WeiXin Layout</h1>
         <hr style={{color: '#777'}}/>
         <Switch>
-          <PrivateRoute isLogin={isLogin} path="/user" component={WeiXinUser} />
+          <PrivateRoute isLogin={isLogin} path="/weixin/user" component={WeiXinUser} />
         </Switch> 
       </div>
     )
