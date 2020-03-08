@@ -1,6 +1,14 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import {Redirect} from 'react-router-dom';
 
-export default class Login extends Component {
+@connect(
+  state => ({login: state.login}),
+  {
+    loginSaga: userInfo => ({type: "LOGIN_SAGA", payload: userInfo})
+  }
+)
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,34 +18,42 @@ export default class Login extends Component {
   }
 
   render() {
-    return (
-      <div style={{ width: "240px" }}>
-        <input
-          name="name"
-          type="text"
-          value={this.state.name}
-          onInput={e => {
-            this.setState({name: e.target.value})
-            console.log("姓名：", e.target.value);
-          }}
-        />
-        <input
-          name="password"
-          type="password"
-          value={this.state.password}
-          onInput={e => {
-            this.setState({password: e.target.value})
-            console.log("密码：", e.target.value);
-          }}
-        />
-        <button
-          onClick={() => {
-            console.log("click");
-          }}
-        >
-          登录
-        </button>
-      </div>
-    );
+    const {login: {isLogin}} = this.props;
+
+    if(isLogin){
+      return <Redirect to={{pathname: "/"}} />
+    }else {
+      return (
+        <div style={{ width: "240px" }}>
+          <input
+            name="name"
+            type="text"
+            value={this.state.name}
+            onChange={e => {
+              this.setState({name: e.target.value})
+            }}
+          />
+          <input
+            name="password"
+            type="password"
+            value={this.state.password}
+            onChange={e => {
+              this.setState({password: e.target.value})
+            }}
+          />
+          <button
+            onClick={() => {
+              const {name, password} = this.state;
+              const {loginSaga} = this.props;
+              loginSaga({name, password});
+            }}
+          >
+            登录
+          </button>
+        </div>
+      );
+    }
   }
 }
+
+export default Login;

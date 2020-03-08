@@ -2,16 +2,20 @@ import React from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import BasicLayout from './layout/BasicLayout';
 import WeiXinLayout from './layout/WeiXinLayout';
+import Login from '../src/pages/Login';
 
-function App() {
+function App(props) {
   return (
-    <Provider store={this.props.store}>
+    <Provider store={props.store}>
       <Router>
-        <Route path="/" exact component={BasicLayout} />
-        <Route path="/weixin" component={WeiXinLayout} />
+        <Switch>
+          <Route path="/weixin" component={WeiXinLayout} />
+          <Route path="/login" component={Login} />
+          <Route path="/" component={BasicLayout} />
+        </Switch>
       </Router>
     </Provider>
   );
