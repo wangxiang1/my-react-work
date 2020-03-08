@@ -49,9 +49,6 @@
           "legacy": true
         }
       ]
-    ],
-    "presets": [
-      "react-app"
     ]
   }
 }
